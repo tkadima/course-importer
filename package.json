@@ -1,0 +1,37 @@
+{
+  "name": "custom-next-template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --write .",
+    "seed": "ts-node src/database/seed.ts",
+    "docker:build": "docker build -t my-next-app .",
+    "docker:run": "docker run -p 3000:3000 my-next-app"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.6",
+    "axios": "^1.7.3",
+    "csv-parse": "^5.5.6",
+    "next": "14.2.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5"
+  }
+}
