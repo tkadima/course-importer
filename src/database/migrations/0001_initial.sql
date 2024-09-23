@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS course (
 
 CREATE TABLE IF NOT EXISTS class (
     id TEXT PRIMARY KEY NOT NULL,
-    courseId  TEXT NOT NULL REFERENCES course(id),
-    instructorID TEXT NOT NULL REFERENCES instructor(id),
+    course_id  TEXT NOT NULL REFERENCES course(id),
+    instructor_id TEXT NOT NULL REFERENCES instructor(id),
     semester TEXT NOT NULL,
     year INTEGER NOT NULL
 );
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS class (
 
 CREATE TABLE IF NOT EXISTS enrollment (
     id TEXT PRIMARY KEY NOT NULL,
-    classId TEXT NOT NULL REFERENCES class(id),
-    studentId TEXT NOT NULL REFERENCES student(id),
+    class_id TEXT NOT NULL REFERENCES class(id),
+    student_id TEXT NOT NULL REFERENCES student(id),
     grade INTEGER
 );
