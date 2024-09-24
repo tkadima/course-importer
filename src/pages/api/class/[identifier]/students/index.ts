@@ -1,8 +1,8 @@
 import { getDb } from '@/database'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-// Get all the enrollments for a class
-// localhost:3000/api/class/{id}/grades?type=id
+// Get all the students with their grades for a class
+// localhost:3000/api/class/{id}/students?type=id
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -22,7 +22,7 @@ export default async function handler(
       let params: any[] = [identifier]
 
       if (type === 'id') {
-        query = 'SELECT * FROM enrollment WHERE class_id = ?'
+        query = 'SELECT student.*, enrollment.grade FROM enrollment JOIN student ON student.id = enrollment.student_id WHERE class_id = ?'
         console.log('query:', query)
       } else {
         return res.status(400).json({ error: 'Invalid type' })

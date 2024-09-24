@@ -1,16 +1,15 @@
 import { getDb } from '@/database'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-// Get the students with the top grades for a class
-// localhost:3000/api/class/{id}/students/top?type=id&count={count}
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   try {
     const db = await getDb()
-    const { identifier, type, count } = req.query
-
+    const { identifier, type } = req.query
+    // Get course by id, title, code, subject, or credits
+    // localhost:3000/api/course/{id}/index?type={type}
     if (req.method === 'GET') {
       if (!identifier || !type) {
         return res
@@ -19,13 +18,18 @@ export default async function handler(
       }
 
       let query: string
-      let params: any[] = [identifier]
-      let limit = count ? `LIMIT ${count}` : ''
+      let params: any[] = [`%${identifier}%`]
 
       if (type === 'id') {
-        query =
-          'SELECT student.*, enrollment.grade FROM enrollment JOIN student ON student.id = enrollment.student_id WHERE class_id = ? ORDER BY grade DESC ' +
-          limit
+        query = 'SELECT * FROM course WHERE id LIKE ?'
+      } else if (type === 'title') {
+        query = 'SELECT * FROM course WHERE title LIKE ?'
+      } else if (type === 'code') {
+        query = 'SELECT * FROM course WHERE code LIKE ?'
+      } else if (type === 'subject') {
+        query = 'SELECT * FROM course WHERE subject LIKE ?'
+      } else if (type === 'credits') {
+        query = 'SELECT * FROM course WHERE credits LIKE ?'
       } else {
         return res.status(400).json({ error: 'Invalid type' })
       }
