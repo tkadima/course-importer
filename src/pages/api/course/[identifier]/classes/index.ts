@@ -1,16 +1,17 @@
+// Get all classes for a course by id or code
+// localhost:3000/api/course/{identifier}/classes?type={type}
+
 import { getDb } from '@/database'
+import { getParams } from '@/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-// Get the students with the top grades for a class
-// localhost:3000/api/class/{id}/students/top?type=id&count={count}
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   try {
     const db = await getDb()
-    const { identifier, type, count } = req.query
-
+    const { identifier, type, ...otherParams } = req.query
     if (req.method === 'GET') {
       if (!identifier || !type) {
         return res
@@ -20,21 +21,23 @@ export default async function handler(
 
       let query: string
       let params: any[] = [identifier]
-      let limit = count ? `LIMIT ${count}` : ''
 
       if (type === 'id') {
-        query =
-          'SELECT student.*, enrollment.grade FROM enrollment JOIN student ON student.id = enrollment.student_id WHERE class_id = ? ORDER BY grade DESC ' +
-          limit
+        query = `SELECT class.* FROM class JOIN course ON class.course_id = course.id WHERE course.id = ?`
+      } else if (type === 'code') {
+        query = `SELECT class.* FROM class JOIN course ON class.course_id = course.id WHERE code = ?`
       } else {
         return res.status(400).json({ error: 'Invalid type' })
       }
 
+      console.log('query:', query)
+
       const data = await db.all(query, params)
       res.status(200).json(data)
+
     }
   } catch (error) {
-    console.error('Failed to run query for class :', error)
-    res.status(500).json({ error: 'Failed to run query for class ' })
+    console.error('Failed to run query for course classes :', error)
+    res.status(500).json({ error: 'Failed to run query for course classes' })
   }
 }
