@@ -2,7 +2,6 @@
 // localhost:3000/api/course/{identifier}/classes?type={type}
 
 import { getDb } from '@/database'
-import { getParams } from '@/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
@@ -34,7 +33,6 @@ export default async function handler(
 
       const data = await db.all(query, params)
       res.status(200).json(data)
-
     }
   } catch (error) {
     console.error('Failed to run query for course classes :', error)
