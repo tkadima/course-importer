@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS course (
 
 CREATE TABLE IF NOT EXISTS class (
     id TEXT PRIMARY KEY NOT NULL,
-    course_id  TEXT NOT NULL REFERENCES course(id),
-    instructor_id TEXT NOT NULL REFERENCES instructor(id),
+    FOREIGN KEY(course_id ) REFERENCES course(id),
+    FOREIGN KEY (instructor_id) REFERENCES instructor(id),
     semester TEXT NOT NULL,
     year INTEGER NOT NULL
 );
@@ -29,7 +29,15 @@ CREATE TABLE IF NOT EXISTS class (
 
 CREATE TABLE IF NOT EXISTS enrollment (
     id TEXT PRIMARY KEY NOT NULL,
-    class_id TEXT NOT NULL REFERENCES class(id),
-    student_id TEXT NOT NULL REFERENCES student(id),
-    grade INTEGER
+    grade INTEGER,
+    FOREIGN KEY (class_id) REFERENCES class(id),
+    FOREIGN KEY (student_id) REFERENCES student(id)
 );
+
+CREATE INDEX idx_student_email ON student(email);
+CREATE INDEX idx_instructor_email ON instructor(email);
+CREATE INDEX idx_course_code ON course(code);
+CREATE INDEX idx_student_id ON ENROLLMENT(student_id);
+CREATE INDEX idx_class_id ON ENROLLMENT(class_id);
+CREATE INDEX idx_course_id ON CLASS(course_id);
+CREATE INDEX idx_instructor_id ON CLASS(instructor_id);
