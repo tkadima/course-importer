@@ -1,4 +1,4 @@
-import { getDb, runMigration } from '@/database'
+import { getDb } from '@/database'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
@@ -6,12 +6,11 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-    await runMigration()
 
     const db = await getDb()
 
     if (req.method === 'GET') {
-      const data = await db.all('SELECT * FROM users')
+      const data = await db.all('SELECT * FROM instructor')
       res.status(200).json(data)
     }
   } catch (error) {

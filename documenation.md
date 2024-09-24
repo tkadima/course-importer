@@ -54,7 +54,8 @@ classDiagram
 - **Efficiency**: By reducing redundancy, the database can be queried more quickly, as there are fewer rows and less duplicated information to process.
 - **Scalability**: As the university grows, more students, instructors, and courses can be added without making the schema more complex or harder to manage.
 
-##3 Indexing
+### Indexing
+Added indexes for all to make look ups faster. The script searches in order to avoid duplication. I added indexes for each of the columns that we use to look up duplicates so those lookup speeds will improve
 
 ## Script
 
@@ -62,5 +63,5 @@ This script seeds an SQLite database with course enrollment data from a CSV file
 
 TODO: batch insertions? 
 
-
+### API 
 
