@@ -8,8 +8,8 @@ export default async function handler(
   try {
     const db = await getDb()
     const { identifier, type } = req.query
-    // Get course by id, title, code, subject, or credits
-    // localhost:3000/api/course/{type_value}/?type={type}
+    // Get student by id, name, email
+    // localhost:3000/api/student/{identifier}/?type={type}
     if (req.method === 'GET') {
       if (!identifier || !type) {
         return res
@@ -21,15 +21,11 @@ export default async function handler(
       let params: any[] = [`%${identifier}%`]
 
       if (type === 'id') {
-        query = 'SELECT * FROM course WHERE id LIKE ?'
-      } else if (type === 'title') {
-        query = 'SELECT * FROM course WHERE title LIKE ?'
-      } else if (type === 'code') {
-        query = 'SELECT * FROM course WHERE code LIKE ?'
-      } else if (type === 'subject') {
-        query = 'SELECT * FROM course WHERE subject LIKE ?'
-      } else if (type === 'credits') {
-        query = 'SELECT * FROM course WHERE credits LIKE ?'
+        query = 'SELECT * FROM student WHERE id LIKE ?'
+      } else if (type === 'name') {
+        query = 'SELECT * FROM student WHERE name LIKE ?'
+      } else if (type === 'email') {
+        query = 'SELECT * FROM student WHERE email LIKE ?'
       } else {
         return res.status(400).json({ error: 'Invalid type' })
       }
@@ -38,7 +34,7 @@ export default async function handler(
       res.status(200).json(data)
     }
   } catch (error) {
-    console.error('Failed to run query for class :', error)
-    res.status(500).json({ error: 'Failed to run query for class ' })
+    console.error('Failed to run query for student :', error)
+    res.status(500).json({ error: 'Failed to run query for student ' })
   }
 }
