@@ -74,6 +74,9 @@ async function processLine(
   const subject = parsedLine[columns.subject]
   const instructorName = parsedLine[columns.instructor_name]
   const instructorEmail = parsedLine[columns.instructor_email]
+  const semester = parsedLine[columns.semester].split(' ')[0]
+  const year = parsedLine[columns.semester].split(' ')[1]
+  const grade = parsedLine[columns.grade]
 
   // Check if the student exists, then insert if not
   if (!(await studentExists(db, studentEmail))) {
@@ -100,14 +103,8 @@ async function processLine(
   const courseId = await getCourseId(db, courseCode)
 
   // Check if the class exists, then insert if not
-  if (!(await classExists(db, instructorId, courseId))) {
-    statements.classStmt.run(
-      uuidv4(),
-      instructorId,
-      courseId,
-      parsedLine[columns.semester].split(' ')[0],
-      parsedLine[columns.semester].split(' ')[1],
-    )
+  if (!(await classExists(db, instructorId, courseId, semester, year))) {
+    statements.classStmt.run(uuidv4(), instructorId, courseId, semester, year)
   }
 
   // Get the class ID and student ID to be used in the enrollment table
@@ -115,12 +112,7 @@ async function processLine(
   const studentId = await getStudentId(db, studentEmail)
 
   if (!(await enrollmentExists(db, studentId, courseId))) {
-    statements.enrollmentStmt.run(
-      uuidv4(),
-      studentId,
-      classId,
-      parsedLine[columns.grade],
-    )
+    statements.enrollmentStmt.run(uuidv4(), studentId, classId, grade)
   }
 }
 

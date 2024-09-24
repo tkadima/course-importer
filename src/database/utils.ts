@@ -60,10 +60,12 @@ export async function classExists(
   db: any,
   studentId: string,
   courseId: string,
+  semester: string,
+  year: number,
 ) {
   const result = await db.get(
-    'SELECT 1 FROM class WHERE instructor_id = ? AND course_id = ?',
-    [studentId, courseId],
+    'SELECT 1 FROM class WHERE instructor_id = ? AND course_id = ? AND semester = ? AND year = ?',
+    [studentId, courseId, semester, year],
   )
   return result !== undefined
 }
