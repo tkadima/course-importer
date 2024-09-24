@@ -21,5 +21,7 @@ export const getParams = (
     newQuery += ' WHERE ' + conditions.join(' AND ')
   }
 
+  console.log('inside getParams', { params, newQuery })
+
   return { params, newQuery }
 }

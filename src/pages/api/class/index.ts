@@ -14,6 +14,9 @@ export default async function handler(
 
       let { params, newQuery } = getParams('SELECT * FROM class', queryParams)
 
+      console.log('params', params)
+      console.log('newQuery', newQuery)
+
       const data = await db.all(newQuery, params)
 
       res.status(200).json(data)
