@@ -5,5 +5,5 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  return handleGet(req, res, 'SELECT * FROM course WHERE id = ?')
+  return handleGet(req, res, 'SELECT * FROM instructor WHERE id = ?')
 }

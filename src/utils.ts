@@ -1,6 +1,27 @@
 import { getDb } from '@/database'
 import { NextApiRequest, NextApiResponse } from 'next'
 
+export const handleGet = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  baseQuery: string,
+) => {
+  try {
+    if (req.method !== 'GET') {
+      return res.status(405).json({ error: 'Method Not Allowed' })
+    }
+
+    const db = await getDb()
+    const { identifier } = req.query
+
+    const data = await db.get(baseQuery, identifier)
+    return res.status(200).json(data)
+  } catch (error) {
+    console.error('Error executing query:', error)
+    return res.status(500).json({ error: 'Failed to fetch data' })
+  }
+}
+
 export const handleQuery = async (
   req: NextApiRequest,
   res: NextApiResponse,
