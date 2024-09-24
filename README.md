@@ -10,7 +10,8 @@ Run the seed command to import the data
 npm run seed
 
 # API instructions
-Run the application 
-`npm run dev` 
-navigate to localhost:3000/api 
+
+Run the application
+`npm run dev`
+navigate to localhost:3000/api
 [todo]

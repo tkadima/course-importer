@@ -6,7 +6,6 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-
     const db = await getDb()
 
     if (req.method === 'GET') {
