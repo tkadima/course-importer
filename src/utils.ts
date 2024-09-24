@@ -3,6 +3,7 @@ export const getParams = (
   queryParams: Partial<{
     [key: string]: string | string[]
   }>,
+  hasWhere = false,
 ) => {
   let conditions: string[] = []
   let params: any[] = []
@@ -18,7 +19,7 @@ export const getParams = (
 
   // If there are conditions, append them to the query
   if (conditions.length > 0) {
-    newQuery += ' WHERE ' + conditions.join(' AND ')
+    newQuery += (hasWhere ? ' AND ': ' WHERE ') + conditions.join(' AND ')
   }
 
   console.log('inside getParams', { params, newQuery })
