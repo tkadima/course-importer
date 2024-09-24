@@ -12,11 +12,7 @@ export default async function handler(
     if (req.method === 'GET') {
       const queryParams = req.query
 
-      let { params, newQuery } = getParams(
-        'SELECT * FROM enrollment',
-        queryParams,
-      )
-
+      let { params, newQuery } = getParams('SELECT * FROM student', queryParams)
       const data = await db.all(newQuery, params)
       res.status(200).json(data)
     }

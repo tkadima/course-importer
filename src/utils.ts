@@ -10,7 +10,7 @@ export const getParams = (
   // Loop through each query parameter and build conditions dynamically
   for (const key in queryParams) {
     if (queryParams.hasOwnProperty(key)) {
-      conditions.push(`${key} = ?`)
+      conditions.push(`${key} LIKE  '%' || ? || '%'`)
       params.push(queryParams[key])
     }
   }
@@ -20,6 +20,8 @@ export const getParams = (
   if (conditions.length > 0) {
     newQuery += ' WHERE ' + conditions.join(' AND ')
   }
+
+  console.log('newQuery:', newQuery)
 
   return { params, newQuery }
 }

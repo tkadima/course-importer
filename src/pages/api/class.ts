@@ -1,4 +1,5 @@
 import { getDb } from '@/database'
+import { getParams } from '@/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
@@ -9,7 +10,12 @@ export default async function handler(
     const db = await getDb()
 
     if (req.method === 'GET') {
-      const data = await db.all('SELECT * FROM class')
+      const queryParams = req.query
+
+      let { params, newQuery } = getParams('SELECT * FROM class', queryParams)
+
+      const data = await db.all(newQuery, params)
+
       res.status(200).json(data)
     }
   } catch (error) {
