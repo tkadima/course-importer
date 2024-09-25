@@ -1,17 +1,64 @@
 # Course Importer
 
-An api for a database seeded by an script that imports student grade data into a SQLite database
+An API for a database seeded by a script that imports student grade data into a SQLite database.
 
 ## Setup
 
-Clone this repo:
-`git clone https://github.com/tkadima/course-importer`
-Run the seed command to import the data
-npm run seed
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/tkadima/course-importer
+   ```
 
-# API instructions
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Run the application
-`npm run dev`
-navigate to localhost:3000/api
-[todo]
+3. Run the seed command to import the data from the CSV and populate the database:
+   ```bash
+   npm run seed
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+   The API will be running locally at `http://localhost:3000`.
+
+## Running API Queries
+
+Once the application is running on `localhost:3000`, you can query the API by making requests to the available endpoints. Below are some example queries you can make:
+
+- **Get all courses:**
+  ```bash
+  GET http://localhost:3000/api/course
+  ```
+
+- **Get a specific course by ID:**
+  ```bash
+  GET http://localhost:3000/api/course/{id}
+  ```
+
+- **Get all classes for a course:**
+  ```bash
+  GET http://localhost:3000/api/course/{id}/classes
+  ```
+
+- **Get all students in a course:**
+  ```bash
+  GET http://localhost:3000/api/course/{id}/students
+  ```
+
+- **Get a specific student by ID:**
+  ```bash
+  GET http://localhost:3000/api/student/{id}
+  ```
+
+- **Get all classes a student is enrolled in with their grades:**
+  ```bash
+  GET http://localhost:3000/api/student/{id}/classes
+  ```
+
+For a full list of endpoints and detailed documentation on how to use them, check out the [API Documentation](./api-documentation.md).
+
