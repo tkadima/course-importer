@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 // Gets all class data
 // filters by query parameters
-// e.g. localhost:3000/api/class?semester=summer&year=2024
+// e.g. localhost:3000/api/class
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,

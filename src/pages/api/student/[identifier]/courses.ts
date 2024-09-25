@@ -8,7 +8,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   let baseQuery = `
-    SELECT DISTINCT course.* 
+    SELECT DISTINCT course.*, enrollment.grade
     FROM student 
     JOIN enrollment ON enrollment.student_id = student.id
     JOIN class ON enrollment.class_id = class.id
