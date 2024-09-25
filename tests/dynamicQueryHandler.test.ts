@@ -52,7 +52,9 @@ describe('handleDynamicQuery', () => {
     )
 
     expect(status).toHaveBeenCalledWith(400)
-    expect(json).toHaveBeenCalledWith({ error: 'Missing identifier in request' })
+    expect(json).toHaveBeenCalledWith({
+      error: 'Missing identifier in request',
+    })
   })
 
   it('should return 404 when no records are found', async () => {

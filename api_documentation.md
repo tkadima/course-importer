@@ -1,11 +1,11 @@
 ### API Documentation:
 
-#### **GET `/api/class`**
+#### **GET `/v1/api/class`**
 
 **Description:** Retrieves all class data from the database, with optional filtering based on query parameters.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/class`
+- **Endpoint:** `/v1/api/class`
 - **Query Parameters:**
   - You can filter results using query parameters that match columns in the `class` table. Example: `?semester=Fall&year=2023`
 - **Response:**
@@ -15,7 +15,7 @@
     - `500 Internal Server Error` if there is a failure executing the query.
 - **Example Request:**
   ```
-  GET /api/class?semester=Fall&year=2023
+  GET /v1/api/class?semester=Fall&year=2023
   ```
 - **Example Response:**
   ```json
@@ -33,12 +33,12 @@
 
 ---
 
-#### **GET `/api/class/{id}`**
+#### **GET `/v1/api/class/{id}`**
 
 **Description:** Retrieves data for a specific class by its ID.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/class/{id}`
+- **Endpoint:** `/v1/api/class/{id}`
 
   - `{id}` should be replaced with the class ID.
 
@@ -50,7 +50,7 @@
 - **Example Request:**
 
   ```
-  GET /api/class/1
+  GET /v1/api/class/1
   ```
 
 - **Example Response:**
@@ -66,12 +66,12 @@
 
 ---
 
-#### **GET `/api/class/{id}/students`**
+#### **GET `/v1/api/class/{id}/students`**
 
 **Description:** Retrieves all students enrolled in a specific class, along with their grades.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/class/{id}/students`
+- **Endpoint:** `/v1/api/class/{id}/students`
   - `{id}` should be replaced with the class ID.
 - **Query Parameters:**
   - You can add optional filters using query parameters, such as filtering students based on attributes.
@@ -85,7 +85,7 @@
 - **Example Request:**
 
   ```
-  GET /api/class/1/students
+  GET /v1/api/class/1/students
   ```
 
 - **Example Response:**
@@ -108,12 +108,12 @@
 
 ---
 
-#### **GET `/api/course`**
+#### **GET `/v1/api/course`**
 
 **Description:** Retrieves all courses, with optional filtering based on query parameters.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/course`
+- **Endpoint:** `/v1/api/course`
 - **Query Parameters:**
 
   - Filter by `title`, `subject`, `credits`, etc.
@@ -126,7 +126,7 @@
 - **Example Request:**
 
   ```
-  GET /api/course?subject=Mathematics
+  GET /v1/api/course?subject=Mathematics
   ```
 
 - **Example Response:**
@@ -144,12 +144,12 @@
 
 ---
 
-#### **GET `/api/course/{id}`**
+#### **GET `/v1/api/course/{id}`**
 
 **Description:** Retrieves a specific course by its ID.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/course/{id}`
+- **Endpoint:** `/v1/api/course/{id}`
 - **Response:**
 
   - **Success:** Returns a JSON object with the course details.
@@ -158,7 +158,7 @@
 - **Example Request:**
 
   ```
-  GET /api/course/course1
+  GET /v1/api/course/course1
   ```
 
 - **Example Response:**
@@ -174,12 +174,12 @@
 
 ---
 
-#### **GET `/api/course/{id}/classes`**
+#### **GET `/v1/api/course/{id}/classes`**
 
 **Description:** Retrieves all classes associated with a specific course ID.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/course/{id}/classes`
+- **Endpoint:** `/v1/api/course/{id}/classes`
 
 - **Response:**
 
@@ -189,7 +189,7 @@
 - **Example Request:**
 
   ```
-  GET /api/course/course1/classes
+  GET /v1/api/course/course1/classes
   ```
 
 - **Example Response:**
@@ -207,12 +207,12 @@
 
 ---
 
-#### **GET `/api/course/{id}/instructors`**
+#### **GET `/v1/api/course/{id}/instructors`**
 
 **Description:** Retrieves all instructors who teach a specific course.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/course/{id}/instructors`
+- **Endpoint:** `/v1/api/course/{id}/instructors`
 
 - **Response:**
 
@@ -222,7 +222,7 @@
 - **Example Request:**
 
   ```
-  GET /api/course/course1/instructors
+  GET /v1/api/course/course1/instructors
   ```
 
 - **Example Response:**
@@ -238,12 +238,12 @@
 
 ---
 
-#### **GET `/api/enrollment`**
+#### **GET `/v1/api/enrollment`**
 
 **Description:** Retrieves all enrollments, with optional filtering based on query parameters.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/enrollment`
+- **Endpoint:** `/v1/api/enrollment`
 
 - **Response:**
 
@@ -253,7 +253,7 @@
 - **Example Request:**
 
   ```
-  GET /api/enrollment
+  GET /v1/api/enrollment
   ```
 
 - **Example Response:**
@@ -270,12 +270,12 @@
 
 ---
 
-#### **GET `/api/instructor`**
+#### **GET `/v1/api/instructor`**
 
 **Description:** Retrieves all instructors, with optional filtering.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/instructor`
+- **Endpoint:** `/v1/api/instructor`
 
 - **Response:**
 
@@ -285,7 +285,7 @@
 - **Example Request:**
 
   ```
-  GET /api/instructor
+  GET /v1/api/instructor
   ```
 
 - **Example Response:**
@@ -301,12 +301,12 @@
 
 ---
 
-#### **GET `/api/instructor/{id}`**
+#### **GET `/v1/api/instructor/{id}`**
 
 **Description:** Retrieves a specific instructor by ID.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/instructor/{id}`
+- **Endpoint:** `/v1/api/instructor/{id}`
 
 - **Response:**
 
@@ -316,7 +316,7 @@
 - **Example Request:**
 
   ```
-  GET /api/instructor/instructor1
+  GET /v1/api/instructor/instructor1
   ```
 
 - **Example Response:**
@@ -330,12 +330,12 @@
 
 ---
 
-#### **GET `/api/instructor/{id}/classes`**
+#### **GET `/v1/api/instructor/{id}/classes`**
 
 **Description:** Retrieves all classes taught by a specific instructor.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/instructor/{id}/classes`
+- **Endpoint:** `/v1/api/instructor/{id}/classes`
 
 - **Response:**
 
@@ -345,7 +345,7 @@
 - **Example Request:**
 
   ```
-  GET /api/instructor/instructor1/classes
+  GET /v1/api/instructor/instructor1/classes
   ```
 
 - **Example Response:**
@@ -363,12 +363,12 @@
 
 ---
 
-#### **GET `/api/instructor/{id}/courses`**
+#### **GET `/v1/api/instructor/{id}/courses`**
 
 **Description:** Retrieves all courses taught by a specific instructor.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/instructor/{id}/courses`
+- **Endpoint:** `/v1/api/instructor/{id}/courses`
 
 - **Response:**
 
@@ -378,7 +378,7 @@
 - **Example Request:**
 
   ```
-  GET /api/instructor/instructor1/courses
+  GET /v1/api/instructor/instructor1/courses
   ```
 
 - **Example Response:**
@@ -396,12 +396,12 @@
 
 ---
 
-#### **GET `/api/instructor/{id}/students`**
+#### **GET `/v1/api/instructor/{id}/students`**
 
 **Description:** Retrieves all students enrolled in the classes taught by the instructor.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/instructor/{id}/students`
+- **Endpoint:** `/v1/api/instructor/{id}/students`
 
 - **Response:**
 
@@ -411,7 +411,7 @@
 - **Example Request:**
 
   ```
-  GET /api/instructor/instructor1/students
+  GET /v1/api/instructor/instructor1/students
   ```
 
 - **Example Response:**
@@ -427,12 +427,12 @@
 
 ---
 
-#### **GET `/api/student`**
+#### **GET `/v1/api/student`**
 
 **Description:** Retrieves all students, with optional filtering.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/student`
+- **Endpoint:** `/v1/api/student`
 
 - **Response:**
 
@@ -442,7 +442,7 @@
 - **Example Request:**
 
   ```
-  GET /api/student
+  GET /v1/api/student
   ```
 
 - **Example Response:**
@@ -458,12 +458,12 @@
 
 ---
 
-#### **GET `/api/student/{id}`**
+#### **GET `/v1/api/student/{id}`**
 
 **Description:** Retrieves a specific student by ID.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/student/{id}`
+- **Endpoint:** `/v1/api/student/{id}`
 
 - **Response:**
 
@@ -473,7 +473,7 @@
 - **Example Request:**
 
   ```
-  GET /api/student/student1
+  GET /v1/api/student/student1
   ```
 
 - **Example Response:**
@@ -487,12 +487,12 @@
 
 ---
 
-#### **GET `/api/student/{id}/classes`**
+#### **GET `/v1/api/student/{id}/classes`**
 
 **Description:** Retrieves all classes that the student is enrolled in, along with their grades.
 
 - **Method:** `GET`
-- **Endpoint:** `/api/student/{id}/classes`
+- **Endpoint:** `/v1/api/student/{id}/classes`
 
 - **Response:**
 
@@ -502,7 +502,7 @@
 - **Example Request:**
 
   ```
-  GET /api/student/student1/classes
+  GET /v1/api/student/student1/classes
   ```
 
 - **Example Response:**
@@ -514,4 +514,6 @@
       "semester": "Fall",
       "year": 2023,
       "grade":
+    }
+    ]
   ```
