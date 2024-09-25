@@ -15,10 +15,18 @@ export const handleGet = async (
     const { identifier } = req.query
 
     const data = await db.get(baseQuery, identifier)
+
+    if (!data) {
+      return res.status(404).json({ error: 'Record not found' })
+    }
+
     return res.status(200).json(data)
-  } catch (error) {
-    console.error('Error executing query:', error)
-    return res.status(500).json({ error: 'Failed to fetch data' })
+  } catch (error: any) {
+    console.error(`Error executing query in handleGet: ${error.message}`, {
+      error,
+      baseQuery,
+    })
+    return res.status(500).json({ error: 'Internal server error' })
   }
 }
 
@@ -37,10 +45,19 @@ export const handleQuery = async (
     const { params, newQuery } = getParams(baseQuery, query)
 
     const data = await db.all(newQuery, params)
+
+    if (!data || data.length === 0) {
+      return res.status(404).json({ error: 'No records found' })
+    }
+
     return res.status(200).json(data)
-  } catch (error) {
-    console.error('Error executing query:', error)
-    return res.status(500).json({ error: 'Failed to fetch data' })
+  } catch (error: any) {
+    console.error(`Error executing query in handleQuery: ${error.message}`, {
+      error,
+      baseQuery,
+      queryParams: req.query,
+    })
+    return res.status(500).json({ error: 'Internal server error' })
   }
 }
 
@@ -55,14 +72,29 @@ export const handleDynamicQuery = async (
     }
     const { identifier, ...otherParams } = req.query
 
+    if (!identifier) {
+      return res.status(400).json({ error: 'Missing identifier in request' })
+    }
+
     const db = await getDb()
     const { params, newQuery } = getParams(baseQuery, otherParams, true)
+
     const data = await db.all(newQuery, [identifier, ...params])
 
+    if (!data || data.length === 0) {
+      return res.status(404).json({ error: 'No records found' })
+    }
+
     return res.status(200).json(data)
-  } catch (error) {
-    console.error('Error executing query:', error)
-    return res.status(500).json({ error: 'Failed to fetch data' })
+  } catch (error: any) {
+    console.error(
+      `Error executing dynamic query in handleDynamicQuery: ${error.message}`,
+      {
+        error,
+        baseQuery,
+      },
+    )
+    return res.status(500).json({ error: 'Internal server error' })
   }
 }
 

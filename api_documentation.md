@@ -105,21 +105,26 @@
     }
   ]
   ```
+
 ---
 
 #### **GET `/api/course`**
+
 **Description:** Retrieves all courses, with optional filtering based on query parameters.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/course`
 - **Query Parameters:**
+
   - Filter by `title`, `subject`, `credits`, etc.
 
 - **Response:**
+
   - **Success:** Returns a JSON array of all course records or filtered records.
   - **Error:** `405 Method Not Allowed` if the request method is not `GET`, `500 Internal Server Error` for query failures.
 
 - **Example Request:**
+
   ```
   GET /api/course?subject=Mathematics
   ```
@@ -140,16 +145,18 @@
 ---
 
 #### **GET `/api/course/{id}`**
+
 **Description:** Retrieves a specific course by its ID.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/course/{id}`
-  
 - **Response:**
+
   - **Success:** Returns a JSON object with the course details.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/course/course1
   ```
@@ -168,16 +175,19 @@
 ---
 
 #### **GET `/api/course/{id}/classes`**
+
 **Description:** Retrieves all classes associated with a specific course ID.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/course/{id}/classes`
 
 - **Response:**
+
   - **Success:** Returns a JSON array of all classes for the given course.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/course/course1/classes
   ```
@@ -198,16 +208,19 @@
 ---
 
 #### **GET `/api/course/{id}/instructors`**
+
 **Description:** Retrieves all instructors who teach a specific course.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/course/{id}/instructors`
 
 - **Response:**
+
   - **Success:** Returns a JSON array of instructors teaching the given course.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/course/course1/instructors
   ```
@@ -226,16 +239,19 @@
 ---
 
 #### **GET `/api/enrollment`**
+
 **Description:** Retrieves all enrollments, with optional filtering based on query parameters.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/enrollment`
 
 - **Response:**
+
   - **Success:** Returns a JSON array of all enrollment records or filtered records.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/enrollment
   ```
@@ -255,16 +271,19 @@
 ---
 
 #### **GET `/api/instructor`**
+
 **Description:** Retrieves all instructors, with optional filtering.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/instructor`
 
 - **Response:**
+
   - **Success:** Returns a JSON array of all instructors.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/instructor
   ```
@@ -283,16 +302,19 @@
 ---
 
 #### **GET `/api/instructor/{id}`**
+
 **Description:** Retrieves a specific instructor by ID.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/instructor/{id}`
 
 - **Response:**
+
   - **Success:** Returns a JSON object with instructor details.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/instructor/instructor1
   ```
@@ -309,16 +331,19 @@
 ---
 
 #### **GET `/api/instructor/{id}/classes`**
+
 **Description:** Retrieves all classes taught by a specific instructor.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/instructor/{id}/classes`
 
 - **Response:**
+
   - **Success:** Returns a JSON array of classes the instructor teaches.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/instructor/instructor1/classes
   ```
@@ -339,16 +364,19 @@
 ---
 
 #### **GET `/api/instructor/{id}/courses`**
+
 **Description:** Retrieves all courses taught by a specific instructor.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/instructor/{id}/courses`
 
 - **Response:**
+
   - **Success:** Returns a JSON array of courses the instructor teaches.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/instructor/instructor1/courses
   ```
@@ -369,16 +397,19 @@
 ---
 
 #### **GET `/api/instructor/{id}/students`**
+
 **Description:** Retrieves all students enrolled in the classes taught by the instructor.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/instructor/{id}/students`
 
 - **Response:**
+
   - **Success:** Returns a JSON array of students.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/instructor/instructor1/students
   ```
@@ -397,16 +428,19 @@
 ---
 
 #### **GET `/api/student`**
+
 **Description:** Retrieves all students, with optional filtering.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/student`
 
 - **Response:**
+
   - **Success:** Returns a JSON array of students.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/student
   ```
@@ -425,16 +459,19 @@
 ---
 
 #### **GET `/api/student/{id}`**
+
 **Description:** Retrieves a specific student by ID.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/student/{id}`
 
 - **Response:**
+
   - **Success:** Returns a JSON object with student details.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/student/student1
   ```
@@ -451,16 +488,19 @@
 ---
 
 #### **GET `/api/student/{id}/classes`**
+
 **Description:** Retrieves all classes that the student is enrolled in, along with their grades.
 
 - **Method:** `GET`
 - **Endpoint:** `/api/student/{id}/classes`
 
 - **Response:**
+
   - **Success:** Returns a JSON array of classes and grades.
   - **Error:** `405 Method Not Allowed`, `500 Internal Server Error`.
 
 - **Example Request:**
+
   ```
   GET /api/student/student1/classes
   ```
@@ -473,4 +513,5 @@
       "course_id": "course1",
       "semester": "Fall",
       "year": 2023,
-      "grade": 
+      "grade":
+  ```

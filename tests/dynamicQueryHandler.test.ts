@@ -41,6 +41,38 @@ describe('handleDynamicQuery', () => {
     expect(json).toHaveBeenCalledWith(mockData)
   })
 
+  it('should return 400 when identifier is missing', async () => {
+    req.method = 'GET'
+    req.query = {}
+
+    await handleDynamicQuery(
+      req as NextApiRequest,
+      res as NextApiResponse,
+      'SELECT * FROM student WHERE id = ?',
+    )
+
+    expect(status).toHaveBeenCalledWith(400)
+    expect(json).toHaveBeenCalledWith({ error: 'Missing identifier in request' })
+  })
+
+  it('should return 404 when no records are found', async () => {
+    const db = { all: jest.fn().mockResolvedValue([]) }
+    ;(getDb as jest.Mock).mockResolvedValue(db)
+
+    req.method = 'GET'
+    req.query = { identifier: '1', semester: 'Fall', year: '2024' }
+
+    await handleDynamicQuery(
+      req as NextApiRequest,
+      res as NextApiResponse,
+      'SELECT * FROM student WHERE id = ?',
+    )
+
+    expect(getDb).toHaveBeenCalled()
+    expect(status).toHaveBeenCalledWith(404)
+    expect(json).toHaveBeenCalledWith({ error: 'No records found' })
+  })
+
   it('should return 405 when method is not GET', async () => {
     req.method = 'POST' // Not allowed method
 
@@ -69,6 +101,6 @@ describe('handleDynamicQuery', () => {
 
     expect(getDb).toHaveBeenCalled()
     expect(status).toHaveBeenCalledWith(500)
-    expect(json).toHaveBeenCalledWith({ error: 'Failed to fetch data' })
+    expect(json).toHaveBeenCalledWith({ error: 'Internal server error' })
   })
 })

@@ -50,6 +50,24 @@ describe('handleQuery', () => {
     expect(json).toHaveBeenCalledWith({ error: 'Method Not Allowed' })
   })
 
+  it('should return 404 when no records are found', async () => {
+    const db = { all: jest.fn().mockResolvedValue([]) }
+    ;(getDb as jest.Mock).mockResolvedValue(db)
+
+    req.method = 'GET'
+    req.query = {}
+
+    await handleQuery(
+      req as NextApiRequest,
+      res as NextApiResponse,
+      'SELECT * FROM student',
+    )
+
+    expect(getDb).toHaveBeenCalled()
+    expect(status).toHaveBeenCalledWith(404)
+    expect(json).toHaveBeenCalledWith({ error: 'No records found' })
+  })
+
   it('should return 500 when there is a database error', async () => {
     const db = { all: jest.fn().mockRejectedValue(new Error('DB error')) }
     ;(getDb as jest.Mock).mockResolvedValue(db)
@@ -65,6 +83,6 @@ describe('handleQuery', () => {
 
     expect(getDb).toHaveBeenCalled()
     expect(status).toHaveBeenCalledWith(500)
-    expect(json).toHaveBeenCalledWith({ error: 'Failed to fetch data' })
+    expect(json).toHaveBeenCalledWith({ error: 'Internal server error' })
   })
 })
