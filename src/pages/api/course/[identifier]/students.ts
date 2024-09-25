@@ -1,7 +1,7 @@
 import { handleDynamicQuery } from '@/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-// Get all the students that are enrolled in a given course 
+// Get all the students that are enrolled in a given course
 // localhost:3000/api/courses/{id}/students
 export default async function handler(
   req: NextApiRequest,

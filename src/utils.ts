@@ -66,7 +66,7 @@ export const handleDynamicQuery = async (
   }
 }
 
- const getParams = (
+const getParams = (
   query: string,
   queryParams: Partial<Record<string, string | string[]>>,
   hasWhere = false,

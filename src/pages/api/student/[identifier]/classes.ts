@@ -1,4 +1,3 @@
-
 import { handleDynamicQuery } from '@/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -8,7 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-    let baseQuery = `
+  let baseQuery = `
     SELECT class.* 
     FROM class 
     JOIN enrollment ON enrollment.class_id = class.id
@@ -16,5 +15,5 @@ export default async function handler(
     WHERE student.id = ?
   `
 
-return handleDynamicQuery(req, res, baseQuery)
+  return handleDynamicQuery(req, res, baseQuery)
 }

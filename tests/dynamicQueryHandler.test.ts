@@ -32,10 +32,11 @@ describe('handleDynamicQuery', () => {
     )
 
     expect(getDb).toHaveBeenCalled()
-    expect(db.all).toHaveBeenCalledWith(
-      expect.any(String), 
-      ['1', 'Fall', '2024']
-    )
+    expect(db.all).toHaveBeenCalledWith(expect.any(String), [
+      '1',
+      'Fall',
+      '2024',
+    ])
     expect(status).toHaveBeenCalledWith(200)
     expect(json).toHaveBeenCalledWith(mockData)
   })
