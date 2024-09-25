@@ -50,7 +50,6 @@ export const handleDynamicQuery = async (
   baseQuery: string,
 ) => {
   try {
-    console.log('reached handleDynamicQuery')
     if (req.method !== 'GET') {
       return res.status(405).json({ error: 'Method Not Allowed' })
     }
@@ -67,7 +66,7 @@ export const handleDynamicQuery = async (
   }
 }
 
-export const getParams = (
+ const getParams = (
   query: string,
   queryParams: Partial<Record<string, string | string[]>>,
   hasWhere = false,

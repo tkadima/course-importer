@@ -1,73 +1,73 @@
-// import { handleDynamicQuery } from '../src/utils';
-// import { getDb } from '@/database';
-// import { NextApiRequest, NextApiResponse } from 'next';
+import { handleDynamicQuery } from '@/utils'
+import { getDb } from '@/database'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-// jest.mock('@/database'); // Mocking the getDb function
-// jest.mock('@/utils', () => ({
-//   getParams: jest.fn(), // Ensure getParams is mocked correctly
-// }));
+jest.mock('@/database')
 
-// console.log(handleDynamicQuery);
+describe('handleDynamicQuery', () => {
+  let req: Partial<NextApiRequest>
+  let res: Partial<NextApiResponse>
+  let json: jest.Mock
+  let status: jest.Mock
 
-// describe('handleDynamicQuery', () => {
-//   let req: Partial<NextApiRequest>;
-//   let res: Partial<NextApiResponse>;
-//   let json: jest.Mock;
-//   let status: jest.Mock;
+  beforeEach(() => {
+    json = jest.fn()
+    status = jest.fn().mockReturnValue({ json })
+    req = {}
+    res = { status }
+  })
 
-//   beforeEach(() => {
-//     json = jest.fn();
-//     status = jest.fn().mockReturnValue({ json });
-//     req = {};
-//     res = { status };
-//   });
+  it('should return 200 and data when method is GET', async () => {
+    const mockData = [{ id: 1, name: 'John Doe' }]
+    const db = { all: jest.fn().mockResolvedValue(mockData) }
+    ;(getDb as jest.Mock).mockResolvedValue(db)
 
-//   it('should return 200 and data for a successful GET request with class ID filtering', async () => {
-//     const mockData = [
-//       { student_id: 1, name: 'John Doe', grade: 'A', class_id: 1 },
-//       { student_id: 2, name: 'Jane Smith', grade: 'B', class_id: 1 }
-//     ];
+    req.method = 'GET'
+    req.query = { identifier: '1', semester: 'Fall', year: '2024' }
 
-//     const db = { all: jest.fn().mockResolvedValue(mockData) };
-//     (getDb as jest.Mock).mockResolvedValue(db);
+    await handleDynamicQuery(
+      req as NextApiRequest,
+      res as NextApiResponse,
+      'SELECT * FROM student WHERE id = ?',
+    )
 
-//     req.method = 'GET';
-//     req.query = { identifier: '1', name: 'John' };
+    expect(getDb).toHaveBeenCalled()
+    expect(db.all).toHaveBeenCalledWith(
+      expect.any(String), 
+      ['1', 'Fall', '2024']
+    )
+    expect(status).toHaveBeenCalledWith(200)
+    expect(json).toHaveBeenCalledWith(mockData)
+  })
 
-//     const baseQuery = 'SELECT student.*, grade FROM student JOIN enrollment ON student.id = enrollment.student_id WHERE class_id = ?';
-//     const mockParams = { params: ['John'], newQuery: baseQuery + ' AND name LIKE \'%\' || ? || \'%\'' };
+  it('should return 405 when method is not GET', async () => {
+    req.method = 'POST' // Not allowed method
 
-//     const { getParams } = require('@/utils');
-//     getParams.mockReturnValue(mockParams);
+    await handleDynamicQuery(
+      req as NextApiRequest,
+      res as NextApiResponse,
+      'SELECT * FROM student WHERE id = ?',
+    )
 
-//     await handleDynamicQuery(req as NextApiRequest, res as NextApiResponse, baseQuery);
+    expect(status).toHaveBeenCalledWith(405)
+    expect(json).toHaveBeenCalledWith({ error: 'Method Not Allowed' })
+  })
 
-//     expect(getDb).toHaveBeenCalled();
-//     expect(getParams).toHaveBeenCalledWith(baseQuery, { name: 'John' }, true);
-//     expect(db.all).toHaveBeenCalledWith(mockParams.newQuery, ['1', 'John']);
-//     expect(status).toHaveBeenCalledWith(200);
-//     expect(json).toHaveBeenCalledWith(mockData);
-//   });
+  it('should return 500 when there is a database error', async () => {
+    const db = { all: jest.fn().mockRejectedValue(new Error('DB error')) }
+    ;(getDb as jest.Mock).mockResolvedValue(db)
 
-//   it('should return 405 when method is not GET', async () => {
-//     req.method = 'POST';
+    req.method = 'GET'
+    req.query = { identifier: '1', semester: 'Fall', year: '2024' }
 
-//     await handleDynamicQuery(req as NextApiRequest, res as NextApiResponse, 'SELECT * FROM student');
+    await handleDynamicQuery(
+      req as NextApiRequest,
+      res as NextApiResponse,
+      'SELECT * FROM student WHERE id = ?',
+    )
 
-//     expect(status).toHaveBeenCalledWith(405);
-//     expect(json).toHaveBeenCalledWith({ error: 'Method Not Allowed' });
-//   });
-
-//   it('should return 500 when the database throws an error', async () => {
-//     const db = { all: jest.fn().mockRejectedValue(new Error('DB error')) };
-//     (getDb as jest.Mock).mockResolvedValue(db);
-
-//     req.method = 'GET';
-//     req.query = { identifier: '1' };
-
-//     await handleDynamicQuery(req as NextApiRequest, res as NextApiResponse, 'SELECT * FROM student');
-
-//     expect(status).toHaveBeenCalledWith(500);
-//     expect(json).toHaveBeenCalledWith({ error: 'Failed to fetch data' });
-//   });
-// });
+    expect(getDb).toHaveBeenCalled()
+    expect(status).toHaveBeenCalledWith(500)
+    expect(json).toHaveBeenCalledWith({ error: 'Failed to fetch data' })
+  })
+})
