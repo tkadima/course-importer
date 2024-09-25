@@ -44,7 +44,30 @@ export const handleQuery = async (
   }
 }
 
-const getParams = (
+export const handleDynamicQuery = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  baseQuery: string,
+) => {
+  try {
+    console.log('reached handleDynamicQuery')
+    if (req.method !== 'GET') {
+      return res.status(405).json({ error: 'Method Not Allowed' })
+    }
+    const { identifier, ...otherParams } = req.query
+
+    const db = await getDb()
+    const { params, newQuery } = getParams(baseQuery, otherParams, true)
+    const data = await db.all(newQuery, [identifier, ...params])
+
+    return res.status(200).json(data)
+  } catch (error) {
+    console.error('Error executing query:', error)
+    return res.status(500).json({ error: 'Failed to fetch data' })
+  }
+}
+
+export const getParams = (
   query: string,
   queryParams: Partial<Record<string, string | string[]>>,
   hasWhere = false,

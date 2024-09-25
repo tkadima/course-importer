@@ -38,7 +38,7 @@ describe('handleQuery', () => {
   })
 
   it('should return 405 when method is not GET', async () => {
-    req.method = 'POST' // Not allowed method
+    req.method = 'POST'
 
     await handleQuery(
       req as NextApiRequest,
