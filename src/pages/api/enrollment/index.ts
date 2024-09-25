@@ -1,4 +1,3 @@
-import { getDb } from '@/database'
 import { handleQuery } from '@/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 

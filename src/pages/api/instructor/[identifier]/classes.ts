@@ -2,17 +2,17 @@
 import { handleDynamicQuery } from '@/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-// Get all classes for a course by id
-// localhost:3000/api/course/{id}/classes
+// Get all classes for a instructor by id
+// localhost:3000/api/instructor/{id}/classes
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
     let baseQuery = `
     SELECT class.* 
-    FROM class 
-    JOIN course ON course.id = class.course_id 
-    WHERE course_id = ?
+    FROM instructor 
+    JOIN class ON class.instructor_id = instructor.id 
+    WHERE instructor.id = ?
   `
 
 return handleDynamicQuery(req, res, baseQuery)
