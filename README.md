@@ -24,6 +24,11 @@ An API for a database seeded by a script that imports student grade data into a 
    npm run dev
    ```
 
+   or run 
+   ```bash 
+   docker-compose up
+   ```
+
    The API will be running locally at `http://localhost:3000`.
 
 ## Running API Queries

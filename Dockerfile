@@ -13,6 +13,9 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
+# Run the seed command to populate the database
+RUN npm run seed
+
 # Expose the port the app runs on
 EXPOSE 3000
 

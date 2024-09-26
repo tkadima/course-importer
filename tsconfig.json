@@ -4,9 +4,9 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": false,               // Allow TypeScript to emit JavaScript files
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "commonjs",          // Set module type to CommonJS for Node.js compatibility
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
